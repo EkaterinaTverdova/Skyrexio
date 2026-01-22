@@ -9,9 +9,6 @@ public class BaseTest {
 
     @BeforeMethod
     public void setup() {
-        // открыть браузер
-        // зайти на сайт https://www.saucedemo.com/
-
         ChromeOptions options = new ChromeOptions();
         options.addArguments("start-maximized");
         //options.addArguments("headless");
