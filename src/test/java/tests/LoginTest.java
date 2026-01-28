@@ -1,5 +1,6 @@
 package tests;
 
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
@@ -15,43 +16,22 @@ public class LoginTest extends BaseTest {
         assertEquals(productsPage.getTitle(), "Products", "Не верный заголовок");
     }
 
-    @Test
-    public void lockedLoginTest() {
-        loginPage.open();
-        loginPage.login("locked_out_user", "secret_sauce");
-
-        assertTrue(loginPage.isErrorDisplayed(), "Нет сообщения об ошибке");
-        assertEquals(loginPage.getErrorText(), "Epic sadface: Sorry, this user has been locked out.",
-                "Не верное текст сообщения об ошибке");
+    @DataProvider
+    public Object[][] incorrectLoginData() {
+        return new Object[][]{
+                {"locked_out_user", "secret_sauce", "Epic sadface: Sorry, this user has been locked out."},
+                {"", "secret_sauce", "Epic sadface: Username is required"},
+                {"standard_user", "", "Epic sadface: Password is required"},
+                {"Standard_user", "secret_sauce", "Epic sadface: Username and password do not match any user in this service"}
+        };
     }
 
-    @Test
-    public void emptyLoginTest() {
+    @Test(dataProvider = "incorrectLoginData")
+    public void incorrectLoginTest(String user, String password, String errorMsg) {
         loginPage.open();
-        loginPage.login("", "secret_sauce");
+        loginPage.login(user, password);
 
         assertTrue(loginPage.isErrorDisplayed(), "Нет сообщения об ошибке");
-        assertEquals(loginPage.getErrorText(), "Epic sadface: Username is required",
-                "Не верное текст сообщения об ошибке");
-    }
-
-    @Test
-    public void emptyPasswordTest() {
-        loginPage.open();
-        loginPage.login("standard_user", "");
-
-        assertTrue(loginPage.isErrorDisplayed(), "Нет сообщения об ошибке");
-        assertEquals(loginPage.getErrorText(), "Epic sadface: Password is required",
-                "Не верное текст сообщения об ошибке");
-    }
-
-    @Test
-    public void incorrectLoginTest() {
-        loginPage.open();
-        loginPage.login("Standard_user", "secret_sauce");
-
-        assertTrue(loginPage.isErrorDisplayed(), "Нет сообщения об ошибке");
-        assertEquals(loginPage.getErrorText(), "Epic sadface: Username and password do not match any user in this service",
-                "Не верное текст сообщения об ошибке");
+        assertEquals(loginPage.getErrorText(), errorMsg, "Не верное текст сообщения об ошибке");
     }
 }
