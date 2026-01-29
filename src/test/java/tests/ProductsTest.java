@@ -3,7 +3,6 @@ package tests;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.testng.Assert.assertEquals;
@@ -19,8 +18,9 @@ public class ProductsTest extends BaseTest {
         productsPage.isTitleDisplayed();
         for (int i = 0; i < goodsList.size(); i++) {
             productsPage.addGoodsToCart(goodsList.get(i));
-            //productsPage.addGoodsToCart("Sauce Labs Backpack");
         }
-        assertEquals(productsPage.checkCounterValue(), "3");
+
+        assertEquals(productsPage.checkCounterValue(), String.valueOf(goodsList.size()));
+        assertEquals(productsPage.checkCounterColor(), "rgba(226, 35, 26, 1)");
     }
 }
