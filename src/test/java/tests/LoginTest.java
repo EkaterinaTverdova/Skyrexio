@@ -13,7 +13,7 @@ public class LoginTest extends BaseTest {
         loginPage.login("standard_user", "secret_sauce");
 
         assertTrue(productsPage.isTitleDisplayed(), "Заголовок не виден");
-        assertEquals(productsPage.getTitle(), "Products", "Не верный заголовок");
+        assertEquals(productsPage.checkTitleName(), "Products", "Не верный заголовок");
     }
 
     @DataProvider

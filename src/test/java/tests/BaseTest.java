@@ -7,6 +7,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import pages.LoginPage;
 import pages.ProductsPage;
+import pages.CartPage;
 
 import java.time.Duration;
 
@@ -14,6 +15,7 @@ public class BaseTest {
     public WebDriver driver;
     LoginPage loginPage;
     ProductsPage productsPage;
+    CartPage cartPage;
 
     @BeforeMethod
     public void setup() {
@@ -28,6 +30,7 @@ public class BaseTest {
 
         loginPage = new LoginPage(driver);
         productsPage = new ProductsPage(driver);
+        cartPage = new CartPage(driver);
     }
 
     @AfterMethod
