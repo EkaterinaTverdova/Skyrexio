@@ -7,7 +7,7 @@ import java.util.List;
 
 import static org.testng.Assert.*;
 
-public class ProductsTest extends BaseTest {
+public class CartTest extends BaseTest {
     List<String> goodsList = new ArrayList<>(
             List.of("Sauce Labs Backpack", "Sauce Labs Fleece Jacket", "Sauce Labs Onesie"));
 
@@ -16,15 +16,17 @@ public class ProductsTest extends BaseTest {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
         assertEquals(productsPage.checkTitleName(), "Products");
-        assertTrue(productsPage.isTitleDisplayed());
 
         for (int i = 0; i < goodsList.size(); i++) {
             productsPage.addGoodsToCart(goodsList.get(i));
         }
 
-        productsPage.addGoodsToCart(2);
-
-        assertEquals(productsPage.checkCounterValue(), String.valueOf(goodsList.size() + 1));
-        assertEquals(productsPage.checkCounterColor(), "rgba(226, 35, 26, 1)");
+        productsPage.switchToCart();
+        assertEquals(cartPage.checkTitleName(), "Your Cart");
+        assertEquals(cartPage.getProductsNames().size(), goodsList.size());
+        assertFalse(cartPage.getProductsNames().isEmpty());
+        for (int i = 0; i < goodsList.size(); i++) {
+            assertTrue(cartPage.getProductsNames().contains(goodsList.get(i)));
+        }
     }
 }
