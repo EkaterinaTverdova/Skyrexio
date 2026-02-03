@@ -2,24 +2,24 @@ package tests;
 
 import org.testng.annotations.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.testng.Assert.*;
+import static user.UserFactory.withStandartPermission;
 
 public class ProductsTest extends BaseTest {
-    List<String> goodsList = new ArrayList<>(
-            List.of("Sauce Labs Backpack", "Sauce Labs Fleece Jacket", "Sauce Labs Onesie"));
+    List<String> goodsList =
+            List.of("Sauce Labs Backpack", "Sauce Labs Fleece Jacket", "Sauce Labs Onesie");
 
     @Test
     public void checkGoodsAddade() {
         loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
+        loginPage.login(withStandartPermission());
         assertEquals(productsPage.checkTitleName(), "Products");
         assertTrue(productsPage.isTitleDisplayed());
 
-        for (int i = 0; i < goodsList.size(); i++) {
-            productsPage.addGoodsToCart(goodsList.get(i));
+        for (String goods : goodsList) {
+            productsPage.addGoodsToCart(goods);
         }
 
         productsPage.addGoodsToCart(2);
