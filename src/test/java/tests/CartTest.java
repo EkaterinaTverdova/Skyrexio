@@ -25,7 +25,6 @@ public class CartTest extends BaseTest {
         productsPage.switchToCart();
 
         assertEquals(cartPage.checkTitleName(), "Your Cart");
-
         assertFalse(cartPage.getProductsNames().isEmpty());
         assertEquals(cartPage.getProductsNames().size(), goodsList.size());
         for (String goods : goodsList) {
