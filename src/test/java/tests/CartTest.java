@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.testng.Assert.*;
+import static user.UserFactory.withStandartPermission;
 
 public class CartTest extends BaseTest {
     List<String> goodsList = new ArrayList<>(
@@ -14,19 +15,20 @@ public class CartTest extends BaseTest {
     @Test
     public void checkGoodsAddade() {
         loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        assertEquals(productsPage.checkTitleName(), "Products");
+        loginPage.login(withStandartPermission());
+        assertEquals(cartPage.checkTitleName(), "Products");
 
-        for (int i = 0; i < goodsList.size(); i++) {
-            productsPage.addGoodsToCart(goodsList.get(i));
+        for (String goods : goodsList) {
+            productsPage.addGoodsToCart(goods);
         }
 
         productsPage.switchToCart();
+
         assertEquals(cartPage.checkTitleName(), "Your Cart");
-        assertEquals(cartPage.getProductsNames().size(), goodsList.size());
         assertFalse(cartPage.getProductsNames().isEmpty());
-        for (int i = 0; i < goodsList.size(); i++) {
-            assertTrue(cartPage.getProductsNames().contains(goodsList.get(i)));
+        assertEquals(cartPage.getProductsNames().size(), goodsList.size());
+        for (String goods : goodsList) {
+            assertTrue(cartPage.getProductsNames().contains(goods));
         }
     }
 }
