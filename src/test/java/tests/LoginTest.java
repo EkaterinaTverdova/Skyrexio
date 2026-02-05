@@ -1,5 +1,9 @@
 package tests;
 
+import io.qameta.allure.Owner;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import user.User;
@@ -9,7 +13,10 @@ import static org.testng.Assert.assertTrue;
 import static user.UserFactory.*;
 
 public class LoginTest extends BaseTest {
-    @Test
+    @Severity(SeverityLevel.BLOCKER)
+    @Owner("Екатерина ")
+    @TmsLink("")
+    @Test(description = "Авторизация пользователя с корректными данными")
     public void correctLoginTest() {
         loginPage.open();
         loginPage.login(withStandartPermission());
@@ -21,14 +28,14 @@ public class LoginTest extends BaseTest {
     @DataProvider
     public Object[][] incorrectLoginData() {
         return new Object[][]{
-                {withLockedPermission(), "Epic sadface: Sorry, this user has been locked out."},
+                {withLockedPermission(), "Epic sadface: Sorry, this user has been locked out./"},
                 {withEmptyLogin(), "Epic sadface: Username is required"},
                 {withEmptyPassword(), "Epic sadface: Password is required"},
                 {withNotExistUser(), "Epic sadface: Username and password do not match any user in this service"}
         };
     }
 
-    @Test(dataProvider = "incorrectLoginData")
+    @Test(dataProvider = "incorrectLoginData", description = "Авторизация пользователя с некорректными данными")
     public void incorrectLoginTest(User user, String errorMsg) {
         loginPage.open();
         loginPage.login(user);

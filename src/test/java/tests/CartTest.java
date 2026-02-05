@@ -1,5 +1,7 @@
 package tests;
 
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
@@ -12,7 +14,8 @@ public class CartTest extends BaseTest {
     List<String> goodsList = new ArrayList<>(
             List.of("Sauce Labs Backpack", "Sauce Labs Fleece Jacket", "Sauce Labs Onesie"));
 
-    @Test
+    @Severity(SeverityLevel.CRITICAL)
+    @Test(description = "Отображение товаров в корзине")
     public void checkGoodsAddade() {
         loginPage.open();
         loginPage.login(withStandartPermission());
