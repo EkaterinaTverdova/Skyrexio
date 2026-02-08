@@ -8,6 +8,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import user.User;
 
+import static enums.TitleNaming.PRODUCTS;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 import static user.UserFactory.*;
@@ -22,13 +23,13 @@ public class LoginTest extends BaseTest {
         loginPage.login(withStandartPermission());
 
         assertTrue(productsPage.isTitleDisplayed(), "Заголовок не виден");
-        assertEquals(productsPage.checkTitleName(), "Products", "Не верный заголовок");
+        assertEquals(productsPage.checkTitleName(), PRODUCTS.getDisplayName(), "Не верный заголовок");
     }
 
     @DataProvider
     public Object[][] incorrectLoginData() {
         return new Object[][]{
-                {withLockedPermission(), "Epic sadface: Sorry, this user has been locked out./"},
+                {withLockedPermission(), "Epic sadface: Sorry, this user has been locked out."},
                 {withEmptyLogin(), "Epic sadface: Username is required"},
                 {withEmptyPassword(), "Epic sadface: Password is required"},
                 {withNotExistUser(), "Epic sadface: Username and password do not match any user in this service"}

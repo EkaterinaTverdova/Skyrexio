@@ -7,6 +7,8 @@ import org.testng.annotations.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static enums.TitleNaming.CART;
+import static enums.TitleNaming.PRODUCTS;
 import static org.testng.Assert.*;
 import static user.UserFactory.withStandartPermission;
 
@@ -19,7 +21,7 @@ public class CartTest extends BaseTest {
     public void checkGoodsAddade() {
         loginPage.open();
         loginPage.login(withStandartPermission());
-        assertEquals(cartPage.checkTitleName(), "Products");
+        assertEquals(cartPage.checkTitleName(), PRODUCTS.getDisplayName());
 
         for (String goods : goodsList) {
             productsPage.addGoodsToCart(goods);
@@ -27,7 +29,7 @@ public class CartTest extends BaseTest {
 
         productsPage.switchToCart();
 
-        assertEquals(cartPage.checkTitleName(), "Your Cart");
+        assertEquals(cartPage.checkTitleName(), CART.getDisplayName());
         assertFalse(cartPage.getProductsNames().isEmpty());
         assertEquals(cartPage.getProductsNames().size(), goodsList.size());
         for (String goods : goodsList) {

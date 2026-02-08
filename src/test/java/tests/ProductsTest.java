@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
+import static enums.TitleNaming.PRODUCTS;
 import static org.testng.Assert.*;
 import static user.UserFactory.withStandartPermission;
 
@@ -18,7 +19,7 @@ public class ProductsTest extends BaseTest {
     public void checkGoodsAddade() {
         loginPage.open();
         loginPage.login(withStandartPermission());
-        assertEquals(productsPage.checkTitleName(), "Products");
+        assertEquals(productsPage.checkTitleName(), PRODUCTS.getDisplayName());
         assertTrue(productsPage.isTitleDisplayed());
 
         for (String goods : goodsList) {
