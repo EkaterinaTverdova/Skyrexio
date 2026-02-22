@@ -1,21 +1,30 @@
 package tests;
 
+import io.qameta.allure.Owner;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.TmsLink;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import user.User;
 
+import static enums.TitleNaming.PRODUCTS;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 import static user.UserFactory.*;
 
 public class LoginTest extends BaseTest {
-    @Test
+    @Severity(SeverityLevel.BLOCKER)
+    @Owner("Екатерина ")
+    @TmsLink("")
+    @Test(description = "Авторизация пользователя с корректными данными")
     public void correctLoginTest() {
-        loginPage.open();
-        loginPage.login(withStandartPermission());
+        loginPage
+                .open()
+                .login(withStandartPermission());
 
         assertTrue(productsPage.isTitleDisplayed(), "Заголовок не виден");
-        assertEquals(productsPage.checkTitleName(), "Products", "Не верный заголовок");
+        assertEquals(productsPage.checkTitleName(), PRODUCTS.getDisplayName(), "Не верный заголовок");
     }
 
     @DataProvider
@@ -28,10 +37,11 @@ public class LoginTest extends BaseTest {
         };
     }
 
-    @Test(dataProvider = "incorrectLoginData")
+    @Test(dataProvider = "incorrectLoginData", description = "Авторизация пользователя с некорректными данными")
     public void incorrectLoginTest(User user, String errorMsg) {
-        loginPage.open();
-        loginPage.login(user);
+        loginPage
+                .open()
+                .login(user);
 
         assertTrue(loginPage.isErrorDisplayed(), "Нет сообщения об ошибке");
         assertEquals(loginPage.getErrorText(), errorMsg, "Не верное текст сообщения об ошибке");
