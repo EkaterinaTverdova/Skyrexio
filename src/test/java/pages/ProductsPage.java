@@ -21,14 +21,18 @@ public class ProductsPage extends BasePage {
     }
 
     @Step("Добавление товара {goodsName} в козину")
-    public void addGoodsToCart(String goodsName) {
+    public ProductsPage addGoodsToCart(String goodsName) {
         By addToCart = By.xpath(ADD_TO_CART_PATTERN.formatted(goodsName));
         driver.findElement(addToCart).click();
+
+        return this;
     }
 
     @Step("Добавление товара с идексом {goodsIndex} в козину")
-    public void addGoodsToCart(int goodsIndex) {
+    public ProductsPage addGoodsToCart(int goodsIndex) {
         driver.findElements(By.xpath("//*[text()='Add to cart']")).get(goodsIndex).click();
+
+        return this;
     }
 
     @Step("Проверка отображения количества добавленных товаров у корзины")
@@ -42,7 +46,9 @@ public class ProductsPage extends BasePage {
     }
 
     @Step("Перемещение в корзинц")
-    public void switchToCart() {
+    public ProductsPage switchToCart() {
         driver.findElement(cartLink).click();
+
+        return this;
     }
 }

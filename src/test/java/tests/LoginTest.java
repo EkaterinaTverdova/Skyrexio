@@ -19,8 +19,9 @@ public class LoginTest extends BaseTest {
     @TmsLink("")
     @Test(description = "Авторизация пользователя с корректными данными")
     public void correctLoginTest() {
-        loginPage.open();
-        loginPage.login(withStandartPermission());
+        loginPage
+                .open()
+                .login(withStandartPermission());
 
         assertTrue(productsPage.isTitleDisplayed(), "Заголовок не виден");
         assertEquals(productsPage.checkTitleName(), PRODUCTS.getDisplayName(), "Не верный заголовок");
@@ -38,8 +39,9 @@ public class LoginTest extends BaseTest {
 
     @Test(dataProvider = "incorrectLoginData", description = "Авторизация пользователя с некорректными данными")
     public void incorrectLoginTest(User user, String errorMsg) {
-        loginPage.open();
-        loginPage.login(user);
+        loginPage
+                .open()
+                .login(user);
 
         assertTrue(loginPage.isErrorDisplayed(), "Нет сообщения об ошибке");
         assertEquals(loginPage.getErrorText(), errorMsg, "Не верное текст сообщения об ошибке");

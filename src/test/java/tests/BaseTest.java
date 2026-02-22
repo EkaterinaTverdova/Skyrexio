@@ -30,7 +30,7 @@ public class BaseTest {
     @BeforeMethod
     public void setup(@Optional("chrome") String browser, ITestContext context) {
         ChromeOptions options = new ChromeOptions();
-        if(browser.equalsIgnoreCase("chrome")) {
+        if (browser.equalsIgnoreCase("chrome")) {
             WebDriverManager.chromedriver().setup();
             options.addArguments("start-maximized");
             options.addArguments("--guest");

@@ -17,8 +17,10 @@ public class ProductsTest extends BaseTest {
     @Severity(SeverityLevel.CRITICAL)
     @Test(description = "Добавление товаров в корзину")
     public void checkGoodsAddade() {
-        loginPage.open();
-        loginPage.login(withStandartPermission());
+        loginPage
+                .open()
+                .login(withStandartPermission());
+
         assertEquals(productsPage.checkTitleName(), PRODUCTS.getDisplayName());
         assertTrue(productsPage.isTitleDisplayed());
 

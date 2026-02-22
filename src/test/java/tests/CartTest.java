@@ -19,8 +19,9 @@ public class CartTest extends BaseTest {
     @Severity(SeverityLevel.CRITICAL)
     @Test(description = "Отображение товаров в корзине")
     public void checkGoodsAddade() {
-        loginPage.open();
-        loginPage.login(withStandartPermission());
+        loginPage
+                .open()
+                .login(withStandartPermission());
         assertEquals(cartPage.checkTitleName(), PRODUCTS.getDisplayName());
 
         for (String goods : goodsList) {
